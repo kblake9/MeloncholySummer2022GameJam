@@ -9,11 +9,13 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D m_rb;
     private float x = 0;
     
-    [SerializeField] private float speed;
-    [SerializeField] private float jumpHeight;
+    [SerializeField] private float moveSpeed = 6f;
+    [SerializeField] private float jumpHeight = 15f;
+    [SerializeField] private float slashFloat = 5;
 
     private bool canMove = true;
-
+    private bool canSlash = true;
+    
 
     private void Awake()
     {
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         m_rb = GetComponent<Rigidbody2D>();
         m_pia.Player.Jump.started += Jump;
+        m_pia.Player.Paint.started += PaintAction;
         m_pia.Player.Enable();
     }
 
@@ -37,7 +40,7 @@ public class PlayerController : MonoBehaviour
         x = m_pia.Player.Movement.ReadValue<Vector2>().x;
         if (canMove)
         {
-            transform.Translate(Vector2.right * x * Time.deltaTime * speed);
+            transform.Translate(Vector2.right * x * Time.deltaTime * moveSpeed);
         }
     }
 
@@ -45,8 +48,29 @@ public class PlayerController : MonoBehaviour
     {
         if (checkGround())
         {
+            m_rb.velocity *= Vector2.right;
             m_rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
         }
+    }
+
+    private void PaintAction(InputAction.CallbackContext context)
+    {
+        if (canSlash)
+        {
+            if (!checkGround())
+            {
+                m_rb.velocity *= (m_rb.velocity.y > 0) ? new Vector2(1, .5f) : new Vector2(1, 0);
+                m_rb.AddForce(Vector2.up * slashFloat, ForceMode2D.Impulse);
+            }
+            StartCoroutine(slashCoolDown());
+        }
+    }
+
+    IEnumerator slashCoolDown ()
+    {
+        canSlash = false;
+        yield return new WaitForSeconds(.5f);
+        canSlash = true;
     }
 
     private bool checkGround ()
