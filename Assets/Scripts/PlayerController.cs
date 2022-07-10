@@ -27,14 +27,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float speed = 2f;
+        float speed = 6f;
         float x = m_pia.Player.Movement.ReadValue<Vector2>().x;
         transform.Translate(Vector2.right * x * Time.deltaTime * speed);
     }
 
     private void Jump(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump");
         m_rb.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
     }
 
