@@ -14,6 +14,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float slashFloat = 5;
 
     private bool canMove = true;
+
+    public Meloncholy PIA => m_pia;
+
+    private static PlayerController instance;
+    public static PlayerController Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<PlayerController>();
+            }
+
+            return instance;
+        }
+    }
     private bool canSlash = true;
     
 
