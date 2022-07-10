@@ -68,7 +68,7 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""ArrowKeys"",
                     ""id"": ""f803b02d-0942-4b74-a1a0-9b1d105ac912"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

@@ -14,6 +14,21 @@ public class PlayerController : MonoBehaviour
 
     private bool canMove = true;
 
+    public Meloncholy PIA => m_pia;
+
+    private static PlayerController instance;
+    public static PlayerController Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<PlayerController>();
+            }
+
+            return instance;
+        }
+    }
 
     private void Awake()
     {
