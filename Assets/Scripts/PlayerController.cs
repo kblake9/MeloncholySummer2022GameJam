@@ -29,8 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         float speed = 2f;
         float x = m_pia.Player.Movement.ReadValue<Vector2>().x;
-        transform.Translate(new Vector2(x * Time.deltaTime * speed, 0));
-
+        transform.Translate(Vector2.right * x * Time.deltaTime * speed);
     }
 
     private void Jump(InputAction.CallbackContext context)
