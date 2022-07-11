@@ -178,7 +178,15 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < hits.Length; ++i)
             {
-                if (hits[i].collider.gameObject != this.gameObject)
+                if (hits[i].collider.gameObject == this.gameObject)
+                {
+                    
+                }
+                else if (hits[i].collider.isTrigger)
+                {
+
+                }
+                else
                 {
                     return true;
                 }
@@ -198,7 +206,15 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < hits.Length; ++i)
             {
-                if (hits[i].collider.gameObject != this.gameObject)
+                if (hits[i].collider.gameObject == this.gameObject)
+                {
+
+                }
+                else if (hits[i].collider.isTrigger)
+                {
+
+                }
+                else
                 {
                     return false;
                 }

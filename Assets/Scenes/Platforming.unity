@@ -338,7 +338,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247584731}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.32, y: -1.26, z: 0}
+  m_LocalPosition: {x: 14.32, y: -0.76, z: 0}
   m_LocalScale: {x: 6.686085, y: 0.91809344, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1574,7 +1574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca467addadaa75f45b3a0b9588416007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topPlatform: {fileID: 0}
+  topPlatform: {fileID: 1276105198}
   bottomPlatform: {fileID: 281551742}
 --- !u!1 &1262740253
 GameObject:
@@ -1679,14 +1679,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262740253}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.37, y: -2.67, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.13052633, w: 0.9914449}
+  m_LocalPosition: {x: 7.175885, y: -1.9455557, z: 0}
   m_LocalScale: {x: 6.686085, y: 0.91809344, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 15}
 --- !u!1 &1267667724
 GameObject:
   m_ObjectHideFlags: 0
@@ -2038,6 +2038,7 @@ GameObject:
   - component: {fileID: 1424177109}
   - component: {fileID: 1424177108}
   - component: {fileID: 1424177110}
+  - component: {fileID: 1424177111}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2090,6 +2091,8 @@ MonoBehaviour:
   moveSpeed: 6
   jumpHeight: 15
   slashFloat: 10
+  playerState: 4
+  slashCooldownTime: 0.5
   cliffBotPlat: {fileID: 0}
 --- !u!212 &1424177106
 SpriteRenderer:
@@ -2215,6 +2218,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &1424177111
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424177103}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1564990305
 GameObject:
   m_ObjectHideFlags: 0
