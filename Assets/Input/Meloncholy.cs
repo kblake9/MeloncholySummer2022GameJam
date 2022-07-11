@@ -62,6 +62,15 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RollDownCliff"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7005f1c-59e2-45e0-91e9-d29fda298fd8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -181,7 +190,7 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Paint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -192,8 +201,30 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Paint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""069fce1b-b597-4e6d-9978-7661ebec5001"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""RollDownCliff"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f419c127-e58c-42b5-a9ae-b68d22a2ba2a"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""RollDownCliff"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -785,6 +816,7 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Paint = m_Player.FindAction("Paint", throwIfNotFound: true);
+        m_Player_RollDownCliff = m_Player.FindAction("RollDownCliff", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -860,6 +892,7 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Paint;
+    private readonly InputAction m_Player_RollDownCliff;
     public struct PlayerActions
     {
         private @Meloncholy m_Wrapper;
@@ -868,6 +901,7 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Paint => m_Wrapper.m_Player_Paint;
+        public InputAction @RollDownCliff => m_Wrapper.m_Player_RollDownCliff;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -889,6 +923,9 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
                 @Paint.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPaint;
                 @Paint.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPaint;
                 @Paint.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPaint;
+                @RollDownCliff.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRollDownCliff;
+                @RollDownCliff.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRollDownCliff;
+                @RollDownCliff.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRollDownCliff;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -905,6 +942,9 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
                 @Paint.started += instance.OnPaint;
                 @Paint.performed += instance.OnPaint;
                 @Paint.canceled += instance.OnPaint;
+                @RollDownCliff.started += instance.OnRollDownCliff;
+                @RollDownCliff.performed += instance.OnRollDownCliff;
+                @RollDownCliff.canceled += instance.OnRollDownCliff;
             }
         }
     }
@@ -1065,6 +1105,7 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnPaint(InputAction.CallbackContext context);
+        void OnRollDownCliff(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

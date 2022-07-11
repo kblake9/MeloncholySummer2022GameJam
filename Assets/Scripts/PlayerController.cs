@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     private Meloncholy m_pia;
     private Rigidbody2D m_rb;
+    private Animator m_animator;
     private float x = 0;
     
     [SerializeField] private float moveSpeed = 6f;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     public Meloncholy PIA => m_pia;
 
+    #region Singleton
     private static PlayerController instance;
     public static PlayerController Instance
     {
@@ -30,20 +32,29 @@ public class PlayerController : MonoBehaviour
             return instance;
         }
     }
+    #endregion
     private bool canSlash = true;
-    
 
     private void Awake()
     {
         m_pia = new Meloncholy();
     }
-    // Start is called before the first frame update
+
     void Start()
     {
+        //Intializing Components
         m_rb = GetComponent<Rigidbody2D>();
+        m_animator = GetComponent<Animator>();
+
+        //Inserting Action Methods to bindings
         m_pia.Player.Jump.started += Jump;
         m_pia.Player.Paint.started += PaintAction;
-        m_pia.Player.Enable();
+        m_pia.Player.RollDownCliff.started += RollDownCliff;
+
+        //Enabling Actions
+        m_pia.Player.Movement.Enable();
+        m_pia.Player.Jump.Enable();
+        m_pia.Player.Paint.Enable();    
     }
 
     private void Update()
@@ -82,11 +93,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator slashCoolDown ()
+    private bool rollingDownward = false;
+    public Transform cliffBotPlat;
+
+    private void RollDownCliff(InputAction.CallbackContext context)
+    {
+        if (!rollingDownward)
+        {
+            rollingDownward = true;
+            float y = cliffBotPlat.position.y;
+            m_pia.Player.Movement.Disable();
+            StartCoroutine(RollDownward(y));
+        } 
+    }
+
+    private IEnumerator slashCoolDown ()
     {
         canSlash = false;
         yield return new WaitForSeconds(.5f);
         canSlash = true;
+    }
+
+    private IEnumerator RollDownward(float target)
+    {    
+        while (transform.position.y > target + 3f)
+        {
+            transform.Translate(Vector2.down * Time.deltaTime * 2);
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        rollingDownward = false;
+        m_pia.Player.Movement.Enable();
     }
 
     private bool checkGround ()
