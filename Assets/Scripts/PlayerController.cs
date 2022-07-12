@@ -76,6 +76,12 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         x = m_pia.Player.Movement.ReadValue<Vector2>().x;
+        m_animator.SetFloat("CurrX", x);
+        if (x > 0.2 || x < -0.2)
+        {
+            m_animator.SetFloat("LastX", x);
+        }
+
         if (playerState == PlayerState.Depression)
         {
             if (!crouching)
@@ -123,6 +129,7 @@ public class PlayerController : MonoBehaviour
         m_rb.velocity *= .6f;
         transform.eulerAngles = shouldCrouch ? transform.eulerAngles : Vector3.zero;
         canSlash = !shouldCrouch;
+        m_animator.SetBool("Roll", shouldCrouch);
     }
 
     private void PaintAction(InputAction.CallbackContext context)
@@ -139,7 +146,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private bool rollingDownward = false;
-    public Transform cliffBotPlat;
+    [HideInInspector] public Transform cliffBotPlat;
 
     private void RollDownCliff(InputAction.CallbackContext context)
     {
