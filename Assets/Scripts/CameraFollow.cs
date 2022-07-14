@@ -26,7 +26,7 @@ public class CameraFollow : MonoBehaviour
         }
     }
     [SerializeField]
-    private float offY;
+    private float offY = 2;
     public float OffY
     {
         set
@@ -35,7 +35,7 @@ public class CameraFollow : MonoBehaviour
         }
     }
     [SerializeField]
-    private float offZ;
+    private float offZ = -1;
     public float OffZ
     {
         set
