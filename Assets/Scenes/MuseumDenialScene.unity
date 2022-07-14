@@ -1063,7 +1063,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1248053636}
   - component: {fileID: 1248053635}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1283,7 +1283,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 2079040632, guid: 2f86680b7dd83224ebc60925ed312db1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1503,7 +1503,7 @@ GameObject:
   - component: {fileID: 1664407964}
   - component: {fileID: 1664407966}
   - component: {fileID: 1664407965}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BackgroundHallway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1823,7 +1823,7 @@ GameObject:
   - component: {fileID: 1883946304}
   - component: {fileID: 1883946303}
   - component: {fileID: 1883946305}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CeilingFloorHorizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
