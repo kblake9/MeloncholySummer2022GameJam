@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
                 Crouch(false);
             }
 
-        }
+        //}
         if (canMove && !crouching)
         {
             transform.Translate(Vector2.right * x * Time.deltaTime * moveSpeed);
