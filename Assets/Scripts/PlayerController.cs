@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!crouching)
             {
-                if (m_pia.Player.Movement.ReadValue<Vector2>().y < 0)
+                if (m_pia.Player.Movement.ReadValue<Vector2>().y < -0.5)
                 {
                     if (checkGround() && canMove)
                     {
@@ -94,16 +94,12 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
-            else
+            else if (m_pia.Player.Movement.ReadValue<Vector2>().y >= 0
+                && checkStandRoom() && canMove)
             {
-                if (m_pia.Player.Movement.ReadValue<Vector2>().y >= 0)
-                {
-                    if (checkStandRoom() && canMove)
-                    {
-                        Crouch(false);
-                    }
-                }
+                Crouch(false);
             }
+
         }
         if (canMove && !crouching)
         {
@@ -115,6 +111,8 @@ public class PlayerController : MonoBehaviour
     {
         if (checkGround())
         {
+            m_animator.ResetTrigger("Jump");
+            m_animator.SetTrigger("Jump");
             m_rb.velocity *= Vector2.right;
             m_rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
         }
@@ -122,25 +120,24 @@ public class PlayerController : MonoBehaviour
 
     private void Crouch(bool shouldCrouch)
     {
+        m_animator.SetBool("Roll", shouldCrouch);
         crouching = shouldCrouch;
         m_cac.enabled = !shouldCrouch;
         m_cic.enabled = shouldCrouch;
         m_rb.freezeRotation = !shouldCrouch;
         m_rb.velocity *= .6f;
         transform.eulerAngles = shouldCrouch ? transform.eulerAngles : Vector3.zero;
-        canSlash = !shouldCrouch;
-        m_animator.SetBool("Roll", shouldCrouch);
+        canSlash = !shouldCrouch;     
     }
 
     private void PaintAction(InputAction.CallbackContext context)
     {
-        if (canSlash)
+        if (canSlash && checkGround())
         {
-            if (!checkGround())
-            {
-                m_rb.velocity *= (m_rb.velocity.y > 0) ? new Vector2(1, .5f) : new Vector2(1, 0);
-                m_rb.AddForce(Vector2.up * slashFloat, ForceMode2D.Impulse);
-            }
+            m_animator.ResetTrigger("Slash");
+            m_animator.SetTrigger("Slash");
+            m_rb.velocity *= (m_rb.velocity.y > 0) ? new Vector2(1, .5f) : new Vector2(1, 0);
+            //m_rb.AddForce(Vector2.up * slashFloat, ForceMode2D.Impulse);
             StartCoroutine(slashCoolDown());
         }
     }
