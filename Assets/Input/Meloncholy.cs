@@ -745,6 +745,45 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""External"",
+            ""id"": ""9c218c1f-80df-4f55-aa5a-d284047eef37"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c3699ff-13ea-4f3b-89e0-0b8af0d469a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""acceb53c-cd0d-423e-8847-e44509698a57"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6682c721-eae3-461b-862b-4de8a846e162"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -829,6 +868,9 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        // External
+        m_External = asset.FindActionMap("External", throwIfNotFound: true);
+        m_External_Pause = m_External.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1054,6 +1096,39 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // External
+    private readonly InputActionMap m_External;
+    private IExternalActions m_ExternalActionsCallbackInterface;
+    private readonly InputAction m_External_Pause;
+    public struct ExternalActions
+    {
+        private @Meloncholy m_Wrapper;
+        public ExternalActions(@Meloncholy wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_External_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_External; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ExternalActions set) { return set.Get(); }
+        public void SetCallbacks(IExternalActions instance)
+        {
+            if (m_Wrapper.m_ExternalActionsCallbackInterface != null)
+            {
+                @Pause.started -= m_Wrapper.m_ExternalActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_ExternalActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_ExternalActionsCallbackInterface.OnPause;
+            }
+            m_Wrapper.m_ExternalActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+            }
+        }
+    }
+    public ExternalActions @External => new ExternalActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1119,5 +1194,9 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+    }
+    public interface IExternalActions
+    {
+        void OnPause(InputAction.CallbackContext context);
     }
 }
