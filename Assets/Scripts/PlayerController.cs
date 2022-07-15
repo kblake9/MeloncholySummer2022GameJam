@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         //Inserting Action Methods to bindings
         m_pia.Player.Jump.started += Jump;
         m_pia.Player.Paint.started += PaintAction;
-        m_pia.Player.RollDownCliff.started += RollDownCliff;
+        m_pia.Player.Interact.started += Interact;
 
         //Enabling Actions
         m_pia.Player.Movement.Enable();
@@ -162,6 +162,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Interact(InputAction.CallbackContext context)
+    {
+
+    }
+
     private bool rollingDownward = false;
     [HideInInspector] public Transform cliffBotPlat;
 
@@ -248,6 +253,26 @@ public class PlayerController : MonoBehaviour
         else
         {
             return true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Interactable>() != null 
+            && collision.GetComponent<Interactable>().isNPC)
+        {
+            m_pia.Player.Interact.Enable();
+            m_pia.Player.Paint.Disable();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Interactable>() != null
+            && collision.GetComponent<Interactable>().isNPC)
+        {
+            m_pia.Player.Interact.Disable();
+            m_pia.Player.Paint.Enable();
         }
     }
 }
