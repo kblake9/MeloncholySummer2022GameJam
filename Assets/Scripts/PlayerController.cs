@@ -14,17 +14,19 @@ public class PlayerController : MonoBehaviour
     private float x = 0;
     
     [SerializeField] private float moveSpeed = 6f;
-    [SerializeField] private float jumpHeight = 15f;
-    [SerializeField] private float slashFloat = 10;
+    [SerializeField] private float jumpHeight = 18f;
+    [SerializeField] private float slashFloat = 13;
 
     private enum PlayerState {None, Denial, Anger, Bargaining, Depression, Acceptance}
     [SerializeField] PlayerState playerState = PlayerState.None;
 
-    [SerializeField] private float slashCooldownTime = .5f;
-    [SerializeField] private float slashPower = 1;
+    [SerializeField] private float slashCooldownTime = .7f;
+    [SerializeField] private float slashPower = 5;
 
     private bool canMove = true;
     private bool crouching = false;
+
+    private int lastX = 0;
 
     public Meloncholy PIA => m_pia;
 
@@ -81,27 +83,23 @@ public class PlayerController : MonoBehaviour
         if (x > 0.2 || x < -0.2)
         {
             m_animator.SetFloat("LastX", x);
+            lastX = x > 0 ? 1 : -1;
         }
-
-        //if (playerState == PlayerState.Depression)
-        //{
-            if (!crouching)
+        if (!crouching)
+        {
+            if (m_pia.Player.Movement.ReadValue<Vector2>().y < -0.5)
             {
-                if (m_pia.Player.Movement.ReadValue<Vector2>().y < -0.5)
+                if (checkGround() && canMove)
                 {
-                    if (checkGround() && canMove)
-                    {
-                        Crouch(true);
-                    }
+                    Crouch(true);
                 }
             }
-            else if (m_pia.Player.Movement.ReadValue<Vector2>().y >= 0
-                && checkStandRoom() && canMove)
-            {
-                Crouch(false);
-            }
-
-        //}
+        }
+        else if (m_pia.Player.Movement.ReadValue<Vector2>().y >= 0
+            && checkStandRoom() && canMove && (m_animator.GetCurrentAnimatorStateInfo(0).IsName("RollingLeft") || m_animator.GetCurrentAnimatorStateInfo(0).IsName("RollingRight")))
+        {
+            Crouch(false);
+        }
         if (canMove && !crouching)
         {
             transform.Translate(Vector2.right * x * Time.deltaTime * moveSpeed);
@@ -142,12 +140,13 @@ public class PlayerController : MonoBehaviour
                 m_rb.velocity *= (m_rb.velocity.y > 0) ? new Vector2(1, .5f) : new Vector2(1, 0);
                 m_rb.AddForce(Vector2.up * slashFloat, ForceMode2D.Impulse);
             }
-            if (playerState == PlayerState.Anger)
+
+            RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(transform.position.x, transform.position.y), new Vector2(.1f, 1.2f), 0.0f, Vector2.right * lastX, 1.5f);
+            if (hits != null)
             {
-                RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(transform.position.x, transform.position.y), new Vector2(.1f, 1.2f), 0.0f, Vector2.right, 1.5f);
-                if (hits != null)
-                {
-                    for (int i = 0; i < hits.Length; ++i)
+                for (int i = 0; i < hits.Length; ++i)
+                    {
+                    if (playerState == PlayerState.Anger)
                     {
                         Rigidbody2D target_rb = hits[i].collider.gameObject.GetComponent<Rigidbody2D>();
                         if (target_rb != null && hits[i].collider.gameObject.tag.Equals("Physics Objects"))
@@ -197,7 +196,7 @@ public class PlayerController : MonoBehaviour
 
     private bool checkGround ()
     {
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(transform.position.x, transform.position.y-.9f),new Vector2(.8f,.1f),0,Vector2.down,.1f);
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(transform.position.x, transform.position.y-(.9f / (crouching ? 3 : 1))),new Vector2(.7f,.1f),0,Vector2.down,.1f);
         if (hits.Length != 0)
         {
             for (int i = 0; i < hits.Length; ++i)
@@ -225,7 +224,7 @@ public class PlayerController : MonoBehaviour
 
     private bool checkStandRoom ()
     {
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(transform.position.x, transform.position.y + .4f), new Vector2(.9f, .1f), 0, Vector2.up, 1.2f);
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(transform.position.x, transform.position.y + .4f), new Vector2(.45f, .1f), 0, Vector2.up, 1.2f);
         if (hits.Length != 0)
         {
             for (int i = 0; i < hits.Length; ++i)
