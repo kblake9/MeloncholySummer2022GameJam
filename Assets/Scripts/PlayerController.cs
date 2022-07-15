@@ -137,6 +137,8 @@ public class PlayerController : MonoBehaviour
     {
         if (canSlash)
         {
+            m_animator.ResetTrigger("Slash");
+            m_animator.SetTrigger("Slash");
             if (!checkGround())
             {
                 m_rb.velocity *= (m_rb.velocity.y > 0) ? new Vector2(1, .5f) : new Vector2(1, 0);
