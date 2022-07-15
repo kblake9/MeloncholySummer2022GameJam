@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a10e5b7a8ed15db4cbdf4f63d15fd7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 1935754847}
   following: 1
   smoothness: 3
   offX: 0
@@ -3326,6 +3326,11 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!4 &1935754847 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9069242253340120643, guid: 32d29f34dde0ce14f8bfd00788f3d411, type: 3}
+  m_PrefabInstance: {fileID: 1239137450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1938178372
 GameObject:
   m_ObjectHideFlags: 0
