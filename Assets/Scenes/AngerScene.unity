@@ -9023,12 +9023,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 9069242253340120642, guid: 32d29f34dde0ce14f8bfd00788f3d411, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1712087341, guid: a7e92bf782fef274db7ab0ad780c8248, type: 3}
+    - target: {fileID: 9069242253340120642, guid: 32d29f34dde0ce14f8bfd00788f3d411, type: 3}
       propertyPath: m_SortingLayer
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9069242253340120642, guid: 32d29f34dde0ce14f8bfd00788f3d411, type: 3}
       propertyPath: m_SortingLayerID
       value: -922365001
+      objectReference: {fileID: 0}
+    - target: {fileID: 9069242253340120642, guid: 32d29f34dde0ce14f8bfd00788f3d411, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9069242253340120643, guid: 32d29f34dde0ce14f8bfd00788f3d411, type: 3}
       propertyPath: m_RootOrder

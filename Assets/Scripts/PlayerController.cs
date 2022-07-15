@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
         //{
             if (!crouching)
             {
-                if (m_pia.Player.Movement.ReadValue<Vector2>().y < 0)
+                if (m_pia.Player.Movement.ReadValue<Vector2>().y < -0.5)
                 {
                     if (checkGround() && canMove)
                     {
@@ -95,17 +95,13 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
-            else
+            else if (m_pia.Player.Movement.ReadValue<Vector2>().y >= 0
+                && checkStandRoom() && canMove)
             {
-                if (m_pia.Player.Movement.ReadValue<Vector2>().y >= 0)
-                {
-                    if (checkStandRoom() && canMove)
-                    {
-                        Crouch(false);
-                    }
-                }
+                Crouch(false);
             }
-        //}
+
+        }
         if (canMove && !crouching)
         {
             transform.Translate(Vector2.right * x * Time.deltaTime * moveSpeed);
@@ -116,6 +112,8 @@ public class PlayerController : MonoBehaviour
     {
         if (checkGround())
         {
+            m_animator.ResetTrigger("Jump");
+            m_animator.SetTrigger("Jump");
             m_rb.velocity *= Vector2.right;
             m_rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
         }
@@ -123,14 +121,14 @@ public class PlayerController : MonoBehaviour
 
     private void Crouch(bool shouldCrouch)
     {
+        m_animator.SetBool("Roll", shouldCrouch);
         crouching = shouldCrouch;
         m_cac.enabled = !shouldCrouch;
         m_cic.enabled = shouldCrouch;
         m_rb.freezeRotation = !shouldCrouch;
         m_rb.velocity *= 0f;
         transform.eulerAngles = shouldCrouch ? transform.eulerAngles : Vector3.zero;
-        canSlash = !shouldCrouch;
-        m_animator.SetBool("Roll", shouldCrouch);
+        canSlash = !shouldCrouch;     
     }
 
     private void PaintAction(InputAction.CallbackContext context)

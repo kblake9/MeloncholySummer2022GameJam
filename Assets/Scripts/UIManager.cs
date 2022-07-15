@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,23 +10,21 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         panel_pauseMenu.SetActive(false);
+        PlayerController.Instance.PIA.External.Pause.started += PauseInput;
+        PlayerController.Instance.PIA.External.Enable();
     }
 
-    private void Update()
+    private void PauseInput(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            panel_pauseMenu.SetActive(!panel_pauseMenu.activeInHierarchy);
+        panel_pauseMenu.SetActive(!panel_pauseMenu.activeInHierarchy);
 
-            if (panel_pauseMenu.activeInHierarchy)
-            {
-                PlayerController.Instance.PIA.Player.Disable();
-            } 
-            else
-            {
-                PlayerController.Instance.PIA.Player.Enable();
-            }
-            
+        if (panel_pauseMenu.activeInHierarchy)
+        {
+            PlayerController.Instance.PIA.Player.Disable();
+        }
+        else
+        {
+            PlayerController.Instance.PIA.Player.Enable();
         }
     }
 }
