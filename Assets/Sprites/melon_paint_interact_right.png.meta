@@ -376,27 +376,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: melon_paint_interact_right_13
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 33
-        width: 16
-        height: 15
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7d4c15a0c421d64469e18da2a53e79b9
-      internalID: -1936450605
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []

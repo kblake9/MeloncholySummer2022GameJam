@@ -132,12 +132,12 @@ public class PlayerController : MonoBehaviour
 
     private void PaintAction(InputAction.CallbackContext context)
     {
-        if (canSlash && checkGround())
+        if (canSlash && !checkGround())
         {
             m_animator.ResetTrigger("Slash");
             m_animator.SetTrigger("Slash");
             m_rb.velocity *= (m_rb.velocity.y > 0) ? new Vector2(1, .5f) : new Vector2(1, 0);
-            //m_rb.AddForce(Vector2.up * slashFloat, ForceMode2D.Impulse);
+            m_rb.AddForce(Vector2.up * slashFloat, ForceMode2D.Impulse);
             StartCoroutine(slashCoolDown());
         }
     }
