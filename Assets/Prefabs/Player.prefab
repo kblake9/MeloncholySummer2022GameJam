@@ -107,6 +107,7 @@ MonoBehaviour:
   slashFloat: 10
   playerState: 4
   slashCooldownTime: 0.5
+  slashPower: 10000
   cliffBotPlat: {fileID: 0}
 --- !u!114 &9069242253340120640
 MonoBehaviour:
