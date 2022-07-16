@@ -118,11 +118,8 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", false);
         count = 0;
         PlayerController.Instance.PIA.Player.Enable();
-<<<<<<< HEAD
         if (isEndScene) {
             SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         }
-=======
->>>>>>> 9bb65b7327e9ca7a5ed7c5598ff1bb2b86721c12
     }
 }
