@@ -104,6 +104,10 @@ public class PlayerController : MonoBehaviour
         {
             transform.Translate(Vector2.right * x * Time.deltaTime * moveSpeed);
         }
+        if(!crouching && Mathf.Abs(m_rb.velocity.x) > 1)
+        {
+            m_rb.velocity = m_rb.velocity = new Vector2(m_rb.velocity.x/Mathf.Abs(m_rb.velocity.x), m_rb.velocity.y);
+        }
     }
 
     private void Jump(InputAction.CallbackContext context)
