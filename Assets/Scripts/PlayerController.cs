@@ -166,8 +166,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-=======
->>>>>>> 9750c990d42038b93f920911c90b7fedf35389b3
     private bool rollingDownward = false;
     [HideInInspector] public Transform cliffBotPlat;
 

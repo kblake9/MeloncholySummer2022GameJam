@@ -5,8 +5,13 @@ using UnityEngine;
 public class OnTriggerEnterBoxCutScene : MonoBehaviour
 {
     [SerializeField] private DialogueTrigger dialogueTrigger;
+    private bool firstTime = true;
 
     void OnTriggerEnter2D(Collider2D coll){
-        dialogueTrigger.TriggerDialogue();
+        if (firstTime) 
+        {
+            dialogueTrigger.TriggerDialogue();
+            firstTime = false;
+        }
     }
 }
