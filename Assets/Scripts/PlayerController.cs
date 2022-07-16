@@ -63,12 +63,12 @@ public class PlayerController : MonoBehaviour
         //Inserting Action Methods to bindings
         m_pia.Player.Jump.started += Jump;
         m_pia.Player.Paint.started += PaintAction;
-        m_pia.Player.Interact.started += Interact;
 
         //Enabling Actions
         m_pia.Player.Movement.Enable();
         m_pia.Player.Jump.Enable();
-        m_pia.Player.Paint.Enable();    
+        m_pia.Player.Paint.Enable();
+        m_pia.Player.Interact.Enable();
     }
 
     private void Update()
@@ -165,11 +165,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Interact(InputAction.CallbackContext context)
-    {
-
-    }
-
     private bool rollingDownward = false;
     [HideInInspector] public Transform cliffBotPlat;
 
@@ -259,23 +254,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.GetComponent<Interactable>() != null 
-            && collision.GetComponent<Interactable>().isNPC)
+        Interactable npc = collision.GetComponent<Interactable>();
+        if (npc != null && npc.isNPC && m_pia.Player.Interact.IsPressed())
         {
-            m_pia.Player.Interact.Enable();
-            m_pia.Player.Paint.Disable();
+            m_pia.Player.Interact.Disable();
+            collision.GetComponent<Interactable>().OnInteract();           
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.GetComponent<Interactable>() != null
-            && collision.GetComponent<Interactable>().isNPC)
-        {
-            m_pia.Player.Interact.Disable();
-            m_pia.Player.Paint.Enable();
-        }
+        m_pia.Player.Interact.Enable();
     }
 }
