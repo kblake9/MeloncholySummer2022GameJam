@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnTriggerEnterBox : MonoBehaviour
+public class OnTriggerEnterBoxCutScene : MonoBehaviour
 {
     [SerializeField] private DialogueTrigger dialogueTrigger;
 

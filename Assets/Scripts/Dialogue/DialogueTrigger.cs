@@ -19,7 +19,6 @@ public class DialogueTrigger : MonoBehaviour
     public void TriggerDialogue()
     {
         if (isColliding) {
-            Debug.Log("How many times is this being called?");
             DialogueManager.Instance.QueueDialogue(dialogues, SceneName, isEndScene);
             isColliding = false;
         }

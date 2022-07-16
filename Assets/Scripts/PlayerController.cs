@@ -167,7 +167,6 @@ public class PlayerController : MonoBehaviour
 
     private void Interact(InputAction.CallbackContext context)
     {
-
     }
 
     private bool rollingDownward = false;
