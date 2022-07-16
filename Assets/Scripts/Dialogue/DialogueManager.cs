@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class DialogueManager : MonoBehaviour
-{   
+{
+    [SerializeField] private GameObject gear;
     private static DialogueManager instance;
     public static DialogueManager Instance 
     { 
@@ -119,6 +120,7 @@ public class DialogueManager : MonoBehaviour
         count = 0;
         PlayerController.Instance.PIA.Player.Enable();
         if (isEndScene) {
+            gear.GetComponent<CanvasGroup>().alpha = 1;
             SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         }
     }
