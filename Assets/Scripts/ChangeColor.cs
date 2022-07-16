@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class ChangeColor : MonoBehaviour
 {
-    private SpriteRenderer m_SpriteRenderer;
-    Color m_newColor;
+    private Renderer cubeRenderer;
 
     void Start() {
-        m_SpriteRenderer = GetComponent<SpriteRenderer>();
-        m_SpriteRenderer.color = Color.white;
-        m_newColor = Color.gray;
+        cubeRenderer = GetComponent<Renderer>();
     }
     public void ColorCube() {
-       m_SpriteRenderer.color = m_newColor;
+       cubeRenderer.material.color = new Color(0.5f, 1, 1);
     }
 }

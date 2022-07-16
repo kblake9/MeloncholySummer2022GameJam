@@ -489,6 +489,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  requireInput: 0
 --- !u!114 &57847971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -889,6 +890,8 @@ GameObject:
   - component: {fileID: 574941368}
   - component: {fileID: 574941370}
   - component: {fileID: 574941369}
+  - component: {fileID: 574941371}
+  - component: {fileID: 574941372}
   m_Layer: 0
   m_Name: Box2
   m_TagString: Untagged
@@ -997,7 +1000,58 @@ MonoBehaviour:
   isNPC: 1
   m_onInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 574941372}
+        m_TargetAssemblyTypeName: ChangeColor, Assembly-CSharp
+        m_MethodName: ColorCube
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  requireInput: 0
+--- !u!61 &574941371
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574941366}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &574941372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574941366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d38f1798b3fa3f43a09092c19a8712a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &617215327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,6 +1233,8 @@ GameObject:
   - component: {fileID: 939366604}
   - component: {fileID: 939366603}
   - component: {fileID: 939366605}
+  - component: {fileID: 939366607}
+  - component: {fileID: 939366606}
   m_Layer: 0
   m_Name: MuseumGoer
   m_TagString: Untagged
@@ -1263,7 +1319,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1279,6 +1335,54 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &939366606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939366602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d46d494378166d4b9e6dcc4c264c1a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - name: Ant
+    characterPortrait: {fileID: 21300000, guid: 110bfce695302994685375d57a7cd1a6, type: 3}
+    sentences:
+    - Man this painting is just like me for real!
+  isEndScene: 0
+  SceneName: 
+--- !u!114 &939366607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939366602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfbd9fd76eedf54ab5939e05c6e4443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNPC: 1
+  m_onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 939366606}
+        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
+        m_MethodName: TriggerDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  requireInput: 0
 --- !u!114 &948122218 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1901811585958284386, guid: 3c936e885a0392747a8cebbe33e24bd8, type: 3}
@@ -1367,6 +1471,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1072057104}
   - component: {fileID: 1072057105}
+  - component: {fileID: 1072057108}
+  - component: {fileID: 1072057107}
+  - component: {fileID: 1072057106}
   m_Layer: 0
   m_Name: SadDescript
   m_TagString: Untagged
@@ -1441,6 +1548,80 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1072057106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072057103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfbd9fd76eedf54ab5939e05c6e4443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNPC: 1
+  m_onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1072057108}
+        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
+        m_MethodName: TriggerDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  requireInput: 0
+--- !u!61 &1072057107
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072057103}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.25, y: 1}
+    newSize: {x: 1.25, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.25, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &1072057108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072057103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d46d494378166d4b9e6dcc4c264c1a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - name: 
+    characterPortrait: {fileID: 21300000, guid: 1bf030b1e0267ad4b8bffc1e662ae672, type: 3}
+    sentences:
+    - '"Depression"'
+  isEndScene: 0
+  SceneName: 
 --- !u!1 &1127971814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,6 +1737,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  requireInput: 0
 --- !u!114 &1127971818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1969,6 +2151,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1276858467}
   - component: {fileID: 1276858468}
+  - component: {fileID: 1276858471}
+  - component: {fileID: 1276858470}
+  - component: {fileID: 1276858469}
   m_Layer: 0
   m_Name: painting_placard (1)
   m_TagString: Untagged
@@ -2043,6 +2228,85 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1276858469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276858466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d46d494378166d4b9e6dcc4c264c1a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - name: 
+    characterPortrait: {fileID: 21300000, guid: 1bf030b1e0267ad4b8bffc1e662ae672, type: 3}
+    sentences:
+    - '"Anger"'
+  - name: Mel
+    characterPortrait: {fileID: 21300000, guid: d3c9c8ddaf13d15438b9a591f9579270, type: 3}
+    sentences:
+    - What?? Why is this glowing-
+    - Wait-
+  isEndScene: 1
+  SceneName: AngerScene(Fixed)
+--- !u!114 &1276858470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276858466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfbd9fd76eedf54ab5939e05c6e4443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNPC: 0
+  m_onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1276858466}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  requireInput: 0
+--- !u!61 &1276858471
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276858466}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.25, y: 1}
+    newSize: {x: 1.25, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.25, y: 1}
+  m_EdgeRadius: 0
 --- !u!95 &1285397281 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1901811586369113502, guid: 3c936e885a0392747a8cebbe33e24bd8, type: 3}
@@ -2163,6 +2427,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1321506537}
   - component: {fileID: 1321506538}
+  - component: {fileID: 1321506541}
+  - component: {fileID: 1321506540}
+  - component: {fileID: 1321506539}
   m_Layer: 0
   m_Name: BoxDescript
   m_TagString: Untagged
@@ -2237,6 +2504,80 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1321506539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321506536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfbd9fd76eedf54ab5939e05c6e4443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNPC: 1
+  m_onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1321506541}
+        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
+        m_MethodName: TriggerDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  requireInput: 0
+--- !u!61 &1321506540
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321506536}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.25, y: 1}
+    newSize: {x: 1.25, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.25, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &1321506541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321506536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d46d494378166d4b9e6dcc4c264c1a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - name: 
+    characterPortrait: {fileID: 21300000, guid: 1bf030b1e0267ad4b8bffc1e662ae672, type: 3}
+    sentences:
+    - '"To Be Revealed"'
+  isEndScene: 0
+  SceneName: 
 --- !u!1 &1367856641
 GameObject:
   m_ObjectHideFlags: 0
@@ -2584,6 +2925,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  requireInput: 0
 --- !u!1 &1463720373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2828,6 +3170,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  requireInput: 0
 --- !u!1 &1543250000
 GameObject:
   m_ObjectHideFlags: 0
@@ -2840,6 +3183,7 @@ GameObject:
   - component: {fileID: 1543250002}
   - component: {fileID: 1543250004}
   - component: {fileID: 1543250003}
+  - component: {fileID: 1543250005}
   m_Layer: 0
   m_Name: Box1
   m_TagString: Untagged
@@ -2930,18 +3274,19 @@ MonoBehaviour:
   m_onInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1543250000}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1543250004}
+        m_TargetAssemblyTypeName: ChangeColor, Assembly-CSharp
+        m_MethodName: ColorCube
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  requireInput: 0
 --- !u!114 &1543250004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2954,6 +3299,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d38f1798b3fa3f43a09092c19a8712a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &1543250005
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543250000}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &1568960816 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1901811587115772763, guid: 3c936e885a0392747a8cebbe33e24bd8, type: 3}
@@ -8753,6 +9124,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2065340453}
   - component: {fileID: 2065340454}
+  - component: {fileID: 2065340457}
+  - component: {fileID: 2065340456}
+  - component: {fileID: 2065340455}
   m_Layer: 0
   m_Name: AcceptDescript
   m_TagString: Untagged
@@ -8827,6 +9201,80 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2065340455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065340452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d46d494378166d4b9e6dcc4c264c1a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - name: 
+    characterPortrait: {fileID: 21300000, guid: 1bf030b1e0267ad4b8bffc1e662ae672, type: 3}
+    sentences:
+    - '"Acceptance"'
+  isEndScene: 0
+  SceneName: 
+--- !u!114 &2065340456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065340452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfbd9fd76eedf54ab5939e05c6e4443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNPC: 1
+  m_onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2065340455}
+        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
+        m_MethodName: TriggerDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  requireInput: 0
+--- !u!61 &2065340457
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065340452}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.25, y: 1}
+    newSize: {x: 1.25, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.25, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &2084435858 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1901811585817296602, guid: 3c936e885a0392747a8cebbe33e24bd8, type: 3}
