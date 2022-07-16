@@ -18,4 +18,3 @@ public class DialogueTrigger : MonoBehaviour
     {
         DialogueManager.Instance.QueueDialogue(dialogues, SceneName, isEndScene);
     }
-}
