@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class DialogueManager : MonoBehaviour
@@ -27,11 +28,13 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
     public Image characterImage;
+    private string sceneName;
 
     public Animator animator;
 
     public Queue<string> sentences;
     private Queue<Dialogue> dialogueSet;
+    private bool isEndScene;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,11 +42,13 @@ public class DialogueManager : MonoBehaviour
         dialogueSet = new Queue<Dialogue>();
         count = 0;
     }
-    public void QueueDialogue(Dialogue[] dialogues) {
+    public void QueueDialogue(Dialogue[] dialogues, string SceneName, bool IsEndScene) {
         foreach (Dialogue dialogue in dialogues)
         {
             dialogueSet.Enqueue(dialogue);
         }
+        isEndScene = IsEndScene;
+        sceneName = SceneName;
         GetDialogue(dialogueSet);
         PlayerController.Instance.PIA.Player.Disable();
     }
@@ -113,5 +118,11 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", false);
         count = 0;
         PlayerController.Instance.PIA.Player.Enable();
+<<<<<<< HEAD
+        if (isEndScene) {
+            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        }
+=======
+>>>>>>> 9bb65b7327e9ca7a5ed7c5598ff1bb2b86721c12
     }
 }

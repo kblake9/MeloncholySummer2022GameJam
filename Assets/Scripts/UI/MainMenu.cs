@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void StartButton()
     {
-        //SceneManager.LoadSceneAsync();
+        SceneManager.LoadSceneAsync("MuseumCutScene", LoadSceneMode.Single);
     }
 
     public void OptionsButton()
