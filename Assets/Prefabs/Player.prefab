@@ -103,11 +103,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
-  jumpHeight: 15
-  slashFloat: 10
+  jumpHeight: 18
+  slashFloat: 13
   playerState: 4
-  slashCooldownTime: 0.5
-  slashPower: 10000
+  slashCooldownTime: 0.7
+  slashPower: 5
   cliffBotPlat: {fileID: 0}
 --- !u!114 &9069242253340120640
 MonoBehaviour:
