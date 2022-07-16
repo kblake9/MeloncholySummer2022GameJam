@@ -10,10 +10,6 @@ public class DialogueTrigger : MonoBehaviour
     public bool isEndScene;
     [SerializeField] private string SceneName;
 
-
-
-    
-
     public void TriggerDialogue()
     {
         DialogueManager.Instance.QueueDialogue(dialogues, SceneName, isEndScene);
