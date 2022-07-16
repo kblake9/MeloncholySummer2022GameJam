@@ -4,10 +4,23 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public Dialogue dialogue;
+    public bool isColliding;
+    private GameObject gameObject;
+    public Dialogue[] dialogues;
+
+
+    void Start()
+    {
+        isColliding = true;
+    }
+    
 
     public void TriggerDialogue()
     {
-        DialogueManager.Instance.StartDialogue(dialogue);
+        if (isColliding) {
+            Debug.Log("How many times is this being called?");
+            DialogueManager.Instance.QueueDialogue(dialogues);
+            isColliding = false;
+        }
     }
 }

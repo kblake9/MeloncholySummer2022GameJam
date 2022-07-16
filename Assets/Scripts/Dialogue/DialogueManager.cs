@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DialogueManager : MonoBehaviour
@@ -18,23 +19,44 @@ public class DialogueManager : MonoBehaviour
             return instance;
         } 
     }
+    private int peopleChange;
+    private int count;
+
+    [SerializeField]private Button continueButton;
+
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
+    public Image characterImage;
 
     public Animator animator;
 
     public Queue<string> sentences;
+    private Queue<Dialogue> dialogueSet;
     // Start is called before the first frame update
     void Start()
     {
         sentences = new Queue<string>();
+        dialogueSet = new Queue<Dialogue>();
+        count = 0;
     }
-
+    public void QueueDialogue(Dialogue[] dialogues) {
+        foreach (Dialogue dialogue in dialogues)
+        {
+            dialogueSet.Enqueue(dialogue);
+        }
+        GetDialogue(dialogueSet);
+    }
+    public void GetDialogue(Queue<Dialogue> dialogueSet)
+    {
+        Dialogue dialogue = dialogueSet.Dequeue();
+        StartDialogue(dialogue);
+    }
     public void StartDialogue(Dialogue dialogue)
     {
         animator.SetBool("IsOpen", true);
 
         nameText.text = dialogue.name;
+        characterImage.sprite = dialogue.characterPortrait;
 
         sentences.Clear();
 
@@ -42,21 +64,37 @@ public class DialogueManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
-
+        count++;
         DisplayNextSentence();
+        
     }
 
     public void DisplayNextSentence()
     {
-        if (sentences.Count == 0)
+        Debug.Log("Sentence Count: " + sentences.Count);
+        Debug.Log("Dialogue Count: " + dialogueSet.Count);
+        Debug.Log("Count: " + count);
+        if (sentences.Count == 0 && dialogueSet.Count == 0)
         {
             EndDialogue();
             return;
         }
-
         string sentence = sentences.Dequeue();
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
+    }
+
+    public void ClickBehavior() 
+    {
+        if (sentences.Count == 0 && dialogueSet.Count == 0)
+        {
+            EndDialogue();
+            return;
+        } else if (sentences.Count == 0) {
+            GetDialogue(dialogueSet);
+        } else {
+            DisplayNextSentence();
+        }
     }
 
     IEnumerator TypeSentence (string sentence)
@@ -72,5 +110,6 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         animator.SetBool("IsOpen", false);
+        count = 0;
     }
 }
