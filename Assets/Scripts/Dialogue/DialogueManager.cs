@@ -45,6 +45,7 @@ public class DialogueManager : MonoBehaviour
             dialogueSet.Enqueue(dialogue);
         }
         GetDialogue(dialogueSet);
+        PlayerController.Instance.PIA.Player.Disable();
     }
     public void GetDialogue(Queue<Dialogue> dialogueSet)
     {
@@ -111,5 +112,6 @@ public class DialogueManager : MonoBehaviour
     {
         animator.SetBool("IsOpen", false);
         count = 0;
+        PlayerController.Instance.PIA.Player.Enable();
     }
 }
