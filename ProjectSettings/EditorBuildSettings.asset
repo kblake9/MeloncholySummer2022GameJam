@@ -11,5 +11,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MuseumCutScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/AngerScene(Fixed).unity
+    guid: 7d2edb5c1dd98794b9bf3655ad78ca09
+  - enabled: 1
+    path: Assets/Scenes/DepressionScene.unity
+    guid: abfa913fe6fd022418a624b108dad782
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 00219aac196cc25418a930b151e1042e, type: 2}
