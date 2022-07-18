@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private bool canMove = true;
     private bool crouching = false;
 
-    private int lastX = 0;
+    private int lastX = 1;
 
     public Meloncholy PIA => m_pia;
 
@@ -178,8 +178,14 @@ public class PlayerController : MonoBehaviour
         else if (crouching && canInflictRollForce)
         {
             //Allows Mel to inflict force when rolling
-            m_rb.AddForce((lastX >= 0 ? Vector2.right : Vector2.left) * moveSpeed * 1.5f, 
+            if (Mathf.Abs(m_rb.velocity.x) <= 18f)
+            {
+                m_rb.AddForce((lastX >= 0 ? Vector2.right : Vector2.left) * moveSpeed,
                 ForceMode2D.Impulse);
+
+                m_rb.AddTorque(-1f * (lastX * moveSpeed) / 2.5f,
+                ForceMode2D.Impulse);
+            }
             StartCoroutine(InflictRollForceCoolDown());   
         }
         
