@@ -12,16 +12,22 @@ public class PlayerController : MonoBehaviour
     private CircleCollider2D m_cic;
 
     private float x = 0;
-    
+    [Header("Mel Modifiers")]
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private float jumpHeight = 18f;
     [SerializeField] private float slashFloat = 13;
-
-    private enum PlayerState {None, Denial, Anger, Bargaining, Depression, Acceptance}
+    [SerializeField] private float slashPower = 5;
     [SerializeField] PlayerState playerState = PlayerState.None;
 
+    private enum PlayerState { None, Denial, Anger, Bargaining, Depression, Acceptance }
+
+    [Header("Mel Cooldowns")]
+    [SerializeField] private bool hasRollCooldown;
     [SerializeField] private float slashCooldownTime = .7f;
-    [SerializeField] private float slashPower = 5;
+    [SerializeField] private float inflictRollCooldownTime = 1f;
+
+    [Header("Prefab Starters")]
+    [SerializeField] private GameObject m_inputIndicator;
 
     private bool canMove = true;
     private bool crouching = false;
@@ -46,6 +52,7 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
     private bool canSlash = true;
+    private bool canInflictRollForce = true;
 
     private void Awake()
     {
@@ -60,15 +67,19 @@ public class PlayerController : MonoBehaviour
         m_cac = GetComponent<CapsuleCollider2D>();
         m_cic = GetComponent<CircleCollider2D>();
 
+        //Component Default Enablings
+        
+
         //Inserting Action Methods to bindings
         m_pia.Player.Jump.started += Jump;
         m_pia.Player.Paint.started += PaintAction;
+        m_pia.External.DialogueContinue.started += DialogueContinueAction;
 
         //Enabling Actions
         m_pia.Player.Movement.Enable();
         m_pia.Player.Jump.Enable();
         m_pia.Player.Paint.Enable();
-        m_pia.Player.Interact.Enable();
+        m_pia.Player.Interact.Enable();      
     }
 
     private void Update()
@@ -80,12 +91,12 @@ public class PlayerController : MonoBehaviour
     {
         x = m_pia.Player.Movement.ReadValue<Vector2>().x;
         m_animator.SetFloat("CurrX", x);
-        if (x > 0.2 || x < -0.2)
+        if (Mathf.Abs(x) > 0.2f)
         {
             m_animator.SetFloat("LastX", x);
             lastX = x > 0 ? 1 : -1;
         }
-        if (!crouching)
+        if (!crouching && canSlash)
         {
             if (m_pia.Player.Movement.ReadValue<Vector2>().y < -0.5)
             {
@@ -100,7 +111,7 @@ public class PlayerController : MonoBehaviour
         {
             Crouch(false);
         }
-        if (canMove && !crouching)
+        if (canMove && !crouching && Mathf.Abs(x) > 0.2f)
         {
             transform.Translate(Vector2.right * x * Time.deltaTime * moveSpeed);
         }
@@ -149,7 +160,7 @@ public class PlayerController : MonoBehaviour
             if (hits != null)
             {
                 for (int i = 0; i < hits.Length; ++i)
-                    {
+                {
                     if (playerState == PlayerState.Anger)
                     {
                         Rigidbody2D target_rb = hits[i].collider.gameObject.GetComponent<Rigidbody2D>();
@@ -161,8 +172,22 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
+
             StartCoroutine(slashCoolDown());
         }
+        else if (crouching && canInflictRollForce)
+        {
+            //Allows Mel to inflict force when rolling
+            m_rb.AddForce((lastX >= 0 ? Vector2.right : Vector2.left) * moveSpeed * 1.5f, 
+                ForceMode2D.Impulse);
+            StartCoroutine(InflictRollForceCoolDown());   
+        }
+        
+    }
+
+    private void DialogueContinueAction(InputAction.CallbackContext context)
+    {
+        DialogueManager.Instance.ClickBehavior();
     }
 
 
@@ -185,6 +210,21 @@ public class PlayerController : MonoBehaviour
         canSlash = false;
         yield return new WaitForSeconds(slashCooldownTime);
         canSlash = true;
+    }
+
+    private IEnumerator InflictRollForceCoolDown()
+    {
+        canInflictRollForce = false;
+        if (hasRollCooldown)
+        {
+            yield return new WaitForSeconds(inflictRollCooldownTime);
+        }
+        else
+        {
+            yield return new WaitUntil(() => !crouching);
+        }
+        
+        canInflictRollForce = true;
     }
 
     private IEnumerator RollDownward(float target)
@@ -255,18 +295,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Interactable>().requireInput)
+        {
+            m_inputIndicator.SetActive(true);
+            m_pia.Player.Paint.Disable();
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         Interactable npc = collision.GetComponent<Interactable>();
         if (npc != null && npc.isNPC && m_pia.Player.Interact.IsPressed())
         {
-            m_pia.Player.Interact.Disable();
             collision.GetComponent<Interactable>().OnInteract();           
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        m_pia.Player.Interact.Enable();
+        if (collision.GetComponent<Interactable>().requireInput)
+        {
+            m_inputIndicator.SetActive(false);
+            m_pia.Player.Paint.Enable();
+        }
     }
 }

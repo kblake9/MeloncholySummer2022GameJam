@@ -758,6 +758,15 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DialogueContinue"",
+                    ""type"": ""Button"",
+                    ""id"": ""ac6b0cca-8e19-4bbb-86ed-481ec418ab9c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -780,6 +789,28 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ecc87a04-3e0f-4493-9af1-bf2fac5b457e"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DialogueContinue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41b69550-ea45-4cc8-adfd-77a41f0678fe"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DialogueContinue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -871,6 +902,7 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
         // External
         m_External = asset.FindActionMap("External", throwIfNotFound: true);
         m_External_Pause = m_External.FindAction("Pause", throwIfNotFound: true);
+        m_External_DialogueContinue = m_External.FindAction("DialogueContinue", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1101,11 +1133,13 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_External;
     private IExternalActions m_ExternalActionsCallbackInterface;
     private readonly InputAction m_External_Pause;
+    private readonly InputAction m_External_DialogueContinue;
     public struct ExternalActions
     {
         private @Meloncholy m_Wrapper;
         public ExternalActions(@Meloncholy wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pause => m_Wrapper.m_External_Pause;
+        public InputAction @DialogueContinue => m_Wrapper.m_External_DialogueContinue;
         public InputActionMap Get() { return m_Wrapper.m_External; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1118,6 +1152,9 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_ExternalActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_ExternalActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_ExternalActionsCallbackInterface.OnPause;
+                @DialogueContinue.started -= m_Wrapper.m_ExternalActionsCallbackInterface.OnDialogueContinue;
+                @DialogueContinue.performed -= m_Wrapper.m_ExternalActionsCallbackInterface.OnDialogueContinue;
+                @DialogueContinue.canceled -= m_Wrapper.m_ExternalActionsCallbackInterface.OnDialogueContinue;
             }
             m_Wrapper.m_ExternalActionsCallbackInterface = instance;
             if (instance != null)
@@ -1125,6 +1162,9 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @DialogueContinue.started += instance.OnDialogueContinue;
+                @DialogueContinue.performed += instance.OnDialogueContinue;
+                @DialogueContinue.canceled += instance.OnDialogueContinue;
             }
         }
     }
@@ -1198,5 +1238,6 @@ public partial class @Meloncholy : IInputActionCollection2, IDisposable
     public interface IExternalActions
     {
         void OnPause(InputAction.CallbackContext context);
+        void OnDialogueContinue(InputAction.CallbackContext context);
     }
 }

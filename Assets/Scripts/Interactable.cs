@@ -8,9 +8,9 @@ using UnityEngine.Events;
 public class Interactable : MonoBehaviour
 {
     [SerializeField] public bool isNPC = false;
+    [SerializeField] public bool requireInput;
     [SerializeField] private UnityEvent m_onInteract;
-    [SerializeField] private bool requireInput;
-
+    
     public void OnInteract()
     {
         m_onInteract.Invoke();

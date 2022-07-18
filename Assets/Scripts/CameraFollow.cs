@@ -44,7 +44,9 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
+    [SerializeField] private bool clampCamera = false;
     [SerializeField] private Vector4 clampPosition;
+     
 
     private Vector3 velocity = Vector3.zero;
     private Vector3 offset;
@@ -64,7 +66,13 @@ public class CameraFollow : MonoBehaviour
             offset = new Vector3(offX, offY, offZ);
             Vector3 desiredPosition = target.position + offset;
             Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothness * Time.deltaTime);
-            smoothedPosition = new Vector3(Mathf.Clamp(smoothedPosition.x, clampPosition.x, clampPosition.y), Mathf.Clamp(smoothedPosition.y, clampPosition.z, clampPosition.w), smoothedPosition.z);
+            if (clampCamera)
+            {
+                smoothedPosition = 
+                    new Vector3(Mathf.Clamp(smoothedPosition.x, clampPosition.x, clampPosition.y),
+                    Mathf.Clamp(smoothedPosition.y, clampPosition.z, clampPosition.w), 
+                    smoothedPosition.z);
+            }       
             transform.position = smoothedPosition;
         }
         

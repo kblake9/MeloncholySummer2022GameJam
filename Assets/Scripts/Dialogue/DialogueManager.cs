@@ -52,6 +52,7 @@ public class DialogueManager : MonoBehaviour
         sceneName = SceneName;
         GetDialogue(dialogueSet);
         PlayerController.Instance.PIA.Player.Disable();
+        PlayerController.Instance.PIA.External.DialogueContinue.Enable();
     }
     public void GetDialogue(Queue<Dialogue> dialogueSet)
     {
@@ -104,7 +105,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    IEnumerator TypeSentence (string sentence)
+    private IEnumerator TypeSentence (string sentence)
     {
         dialogueText.text = "";
         foreach (char letter in sentence.ToCharArray())
@@ -119,6 +120,7 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", false);
         count = 0;
         PlayerController.Instance.PIA.Player.Enable();
+        PlayerController.Instance.PIA.External.DialogueContinue.Disable();
         if (isEndScene) {
             gear.GetComponent<CanvasGroup>().alpha = 1;
             SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
